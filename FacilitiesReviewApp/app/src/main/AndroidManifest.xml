@@ -24,6 +24,10 @@
             android:name=".LoadSationActivity"
             android:label="@string/title_activity_load_sation" >
         </activity>
+        <activity
+            android:name=".AddReviewActivity"
+            android:label="@string/title_activity_add_review" >
+        </activity>
     </application>
 
 </manifest>

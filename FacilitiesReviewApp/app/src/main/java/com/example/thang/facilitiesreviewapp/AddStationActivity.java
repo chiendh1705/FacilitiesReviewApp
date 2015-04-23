@@ -25,19 +25,23 @@ public class AddStationActivity extends Activity {
         Spinner tvspinner = (Spinner) findViewById(R.id.spinner);
         EditText txtFaclitiesStation = (EditText) findViewById(R.id.txtFaclitiesStation);
         EditText txtLocationSation = (EditText) findViewById(R.id.txtLocationSation);
+        EditText txtID = (EditText) findViewById(R.id.txtID);
         String nameSation = txtNameStation.getText().toString();
         String typeSation = tvspinner.getSelectedItem().toString();
         String faclitiesSation = txtFaclitiesStation.getText().toString();
         String locationSation = txtLocationSation.getText().toString();
+        String id = txtID.getText().toString();
 
         //Insert
-        database.addStation(nameSation, typeSation,faclitiesSation,locationSation);
+        database.addStation(id,nameSation, typeSation,faclitiesSation,locationSation);
         //Toast
         Toast.makeText(this, "Added successfully", Toast.LENGTH_LONG).show();
         //Reset the form
         txtNameStation.setText("");
         txtFaclitiesStation.setText("");
         txtLocationSation.setText("");
+        txtID.setText("");
+        super.onBackPressed();
     }
 
     @Override

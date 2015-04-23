@@ -20,14 +20,21 @@ public class Database extends SQLiteOpenHelper{
     @Override
     public void onCreate(SQLiteDatabase db) {
         String addStation = "create table station("+
-                "_id integer primary key,"
+                "sid text,"
                 +"stationName text,"+
                 "stationType text,"+
                 "stationFacilities text," +
                 "stationLocation text )";
-        String insertStation  = "INSERT INTO station(stationName,stationType,stationFacilities,stationLocation) VALUES ('London Bridge', 'Underground','wifi','fewfwefw')";
+        String addReviewTable = "CREATE TABLE ReviewTable("+
+                "dateReivew, "+
+                "typeFacility  text,"+
+                "overallRating  text,"+
+                "publishReview  text," +
+                "sid text)";
+        String insertStation  = "INSERT INTO station(sid,stationName,stationType,stationFacilities,stationLocation) VALUES ('id1','London Bridge', 'Underground','wifi','fewfwefw')";
         db.execSQL(addStation);
         db.execSQL(insertStation);
+        db.execSQL(addReviewTable);
     }
 
     @Override
@@ -36,15 +43,38 @@ public class Database extends SQLiteOpenHelper{
         db.execSQL(sql);
         onCreate(db);
     }
-    public void addStation( String stationName,String stationType, String stationFacilities,String stationLocation ){
+
+    public void addStation(String sid, String stationName,String stationType, String stationFacilities,String stationLocation ){
         //Get access to an object that represent our db
         SQLiteDatabase db = this.getWritableDatabase();
         ContentValues row = new ContentValues();
+        row.put("sid", sid);
         row.put("stationName", stationName);
         row.put("stationType", stationType);
         row.put("stationFacilities", stationFacilities);
         row.put("stationLocation", stationLocation);
         db.insert("station", null, row);
+        db.close();
+    }
+
+    public void deleteStation(String sid){
+        SQLiteDatabase db = this.getWritableDatabase();
+//        String mStatement = "DELETE FROM station WHERE _id = " + sid +"";
+//        db.execSQL(mStatement);
+        db.delete("station", "sid" + "=\"" + sid +"\"" , null);
+        db.close();
+    }
+    // Add new review by Station id
+    public void addReview( String typeFacility,String overallRating, String publishReview,String sid){
+        //Get access to an object that represent our db
+        SQLiteDatabase db = this.getWritableDatabase();
+        ContentValues row = new ContentValues();
+        row.put("typeFacility", typeFacility);
+        row.put("overallRating", overallRating);
+        row.put("publishReview", publishReview);
+        row.put("publishReview", publishReview);
+        row.put("sid", sid);
+        db.insert("ReviewTable", null, row);
         db.close();
     }
     SQLiteDatabase db=null;
@@ -53,7 +83,7 @@ public class Database extends SQLiteOpenHelper{
         db = this.getReadableDatabase();
         Cursor cursor = db.query(
                 "station",
-                new String[]{"_id", "stationName", "stationType","stationFacilities","stationLocation"},
+                new String[]{"sid as _id", "stationName", "stationType","stationFacilities","stationLocation"},
                 null, null, null, null, null
         );//execute SQL: select * from product
         return cursor;
