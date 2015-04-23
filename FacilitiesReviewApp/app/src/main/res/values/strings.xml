@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string name="app_name">"FacilitiesReviewApp "</string>
+    <string name="hello_world">Hello world!</string>
+    <string name="action_settings">Settings</string>
+    <string name="title_activity_add_station">AddStationActivity</string>
+    <string name="title_activity_load_sation">LoadSationActivity</string>
+    <string-array name="type_station">
+        <item>Underground</item>
+        <item>National Rail</item>
+        <item>DLR</item>
+    </string-array>
+
+</resources>
