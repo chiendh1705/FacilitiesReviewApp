@@ -17,9 +17,8 @@ public class AddReviewActivity extends Activity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add_review);
-        Intent intent = getIntent();
-        String sid = intent.getStringExtra("sid");
-        Toast.makeText(this,"sid"+sid , Toast.LENGTH_SHORT).show();
+
+
     }
 
 
@@ -34,10 +33,13 @@ public class AddReviewActivity extends Activity {
         String typeFacility = txtTypeFacility.getText().toString();
         String overallRating = txtOverallRating.getText().toString();
         String publishReview = txtPublishReview.getText().toString();
+        Intent intent = getIntent();
+        String sid = intent.getStringExtra("sid");
+        Toast.makeText(this,"sid"+sid , Toast.LENGTH_SHORT).show();
 
 
         //Insert
-        database.addReview(dateReview, typeFacility, overallRating, publishReview);
+        database.addReview(  sid,dateReview, typeFacility, overallRating, publishReview);
         //Toast
         Toast.makeText(this, "Added successfully", Toast.LENGTH_LONG).show();
         //Reset the form

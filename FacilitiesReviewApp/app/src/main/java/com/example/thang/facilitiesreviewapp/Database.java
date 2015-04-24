@@ -26,11 +26,11 @@ public class Database extends SQLiteOpenHelper{
                 "stationFacilities text," +
                 "stationLocation text )";
         String addReviewTable = "CREATE TABLE ReviewTable("+
+                "sid text"+
                 "dateReivew, "+
                 "typeFacility  text,"+
                 "overallRating  text,"+
-                "publishReview  text," +
-                "sid text)";
+                "publishReview  text)";
         String insertStation  = "INSERT INTO station(sid,stationName,stationType,stationFacilities,stationLocation) VALUES ('id1','London Bridge', 'Underground','wifi','fewfwefw')";
         db.execSQL(addStation);
         db.execSQL(insertStation);
@@ -65,15 +65,15 @@ public class Database extends SQLiteOpenHelper{
         db.close();
     }
     // Add new review by Station id
-    public void addReview( String typeFacility,String overallRating, String publishReview,String sid){
+    public void addReview(String sid,String dateReivew, String typeFacility, String overallRating, String publishReview){
         //Get access to an object that represent our db
         SQLiteDatabase db = this.getWritableDatabase();
         ContentValues row = new ContentValues();
+        row.put("sid", sid);
+        row.put("dateReivew", dateReivew);
         row.put("typeFacility", typeFacility);
         row.put("overallRating", overallRating);
         row.put("publishReview", publishReview);
-        row.put("publishReview", publishReview);
-        row.put("sid", sid);
         db.insert("ReviewTable", null, row);
         db.close();
     }
@@ -85,6 +85,16 @@ public class Database extends SQLiteOpenHelper{
                 "station",
                 new String[]{"sid as _id", "stationName", "stationType","stationFacilities","stationLocation"},
                 null, null, null, null, null
+        );//execute SQL: select * from product
+        return cursor;
+    }
+    public Cursor loadAllReview(){
+        //Open connection to the db
+        db = this.getReadableDatabase();
+        Cursor cursor = db.query(
+                "ReviewTable",
+                new String[]{"sid as _id", "dateReivew", "typeFacility","overallRating","publishReview"},
+                "sid as _id like ?", null, null, null, null
         );//execute SQL: select * from product
         return cursor;
     }
