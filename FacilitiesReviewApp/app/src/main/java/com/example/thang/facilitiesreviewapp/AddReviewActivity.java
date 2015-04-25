@@ -39,7 +39,7 @@ public class AddReviewActivity extends Activity {
 
 
         //Insert
-        database.addReview(  sid,dateReview, typeFacility, overallRating, publishReview);
+        database.addReview(sid,dateReview, typeFacility, overallRating, publishReview);
         //Toast
         Toast.makeText(this, "Added successfully", Toast.LENGTH_LONG).show();
         //Reset the form

@@ -91,6 +91,9 @@ public class LoadSationActivity extends Activity {
             Intent addStation = new Intent(this, AddStationActivity.class);
             ca.getItem(position);
             startActivity(addStation);
+//            Intent viewReview = new Intent(this, LoadRiviewActivity.class);
+//            viewReview.putExtra("sid", sid);
+//            startActivity(viewReview);
 
 
         } else if (item.getTitle().equals("Delete")) {
@@ -105,18 +108,24 @@ public class LoadSationActivity extends Activity {
             Intent addReview = new Intent(this, AddReviewActivity.class);
             addReview.putExtra("sid", sid);
             startActivity(addReview);
+
+        } else if(item.getTitle().equals("View Review")){
+            Intent viewReview = new Intent(this, LoadRiviewActivity.class);
+            viewReview.putExtra("sid", sid);
+            startActivity(viewReview);
         }
+
         return
                 false;
 
     }
-
 
     @Override
     public void onCreateContextMenu(ContextMenu menu, View v, ContextMenu.ContextMenuInfo menuInfo) {
         menu.add("Add Station");
         menu.add("Add Review");
         menu.add("Delete");
+        menu.add("View Review");
         super.onCreateContextMenu(menu, v, menuInfo);
     }
 }

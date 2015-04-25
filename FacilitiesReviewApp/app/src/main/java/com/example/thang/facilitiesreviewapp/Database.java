@@ -26,15 +26,17 @@ public class Database extends SQLiteOpenHelper{
                 "stationFacilities text," +
                 "stationLocation text )";
         String addReviewTable = "CREATE TABLE ReviewTable("+
-                "sid text"+
-                "dateReivew, "+
+                "sid text,"+
+                "dateReview text, "+
                 "typeFacility  text,"+
                 "overallRating  text,"+
                 "publishReview  text)";
         String insertStation  = "INSERT INTO station(sid,stationName,stationType,stationFacilities,stationLocation) VALUES ('id1','London Bridge', 'Underground','wifi','fewfwefw')";
+        String insertReview  = "INSERT INTO ReviewTable VALUES ('id1','aaa', 'aaaa','aaaa','aaaaa')";
         db.execSQL(addStation);
         db.execSQL(insertStation);
         db.execSQL(addReviewTable);
+        db.execSQL(insertReview);
     }
 
     @Override
@@ -65,12 +67,12 @@ public class Database extends SQLiteOpenHelper{
         db.close();
     }
     // Add new review by Station id
-    public void addReview(String sid,String dateReivew, String typeFacility, String overallRating, String publishReview){
+    public void addReview(String sid,String dateReview, String typeFacility, String overallRating, String publishReview){
         //Get access to an object that represent our db
         SQLiteDatabase db = this.getWritableDatabase();
         ContentValues row = new ContentValues();
         row.put("sid", sid);
-        row.put("dateReivew", dateReivew);
+        row.put("dateReview", dateReview);
         row.put("typeFacility", typeFacility);
         row.put("overallRating", overallRating);
         row.put("publishReview", publishReview);
@@ -88,16 +90,22 @@ public class Database extends SQLiteOpenHelper{
         );//execute SQL: select * from product
         return cursor;
     }
-    public Cursor loadAllReview(){
-        //Open connection to the db
-        db = this.getReadableDatabase();
+    public Cursor loadReviewById(String id){
+        SQLiteDatabase db = this.getReadableDatabase();
+//        id = "%" + id + "%";
+//        String mQuery = "SELECT sid as _id, dateReview, typeFacility, overallRating, publishReview FROM ReviewTable WHERE sid "+ "=\"" + id + "\"";
+
         Cursor cursor = db.query(
                 "ReviewTable",
-                new String[]{"sid as _id", "dateReivew", "typeFacility","overallRating","publishReview"},
-                "sid as _id like ?", null, null, null, null
-        );//execute SQL: select * from product
-        return cursor;
+                new String[]{"sid as _id","dateReview", "typeFacility","overallRating","publishReview"},
+                "sid = ?",
+                new String[]{id},
+                null, null, null
+        );
+//        Cursor cursor = db.rawQuery(mQuery, null);
+        return  cursor;
     }
+
 
     @Override
     protected void finalize() throws Throwable {

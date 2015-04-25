@@ -8,11 +8,14 @@
     <string name="title_activity_load_sation">LoadSationActivity</string>
     <string name="Menu">Menu</string>
     <string name="DeleteObj">Delete</string>
+
     <string-array name="type_station">
         <item>Underground</item>
         <item>National Rail</item>
         <item>DLR</item>
     </string-array>
+
     <string name="title_activity_add_review">AddReviewActivity</string>
+    <string name="title_activity_load_riview">LoadRiviewActivity</string>
 
 </resources>
